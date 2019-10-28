@@ -1,0 +1,21 @@
+{
+    "name": "emiteos-server",
+    "version": "0.0.1",
+    "description": "The Emiteos Server.",
+    "main": "main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "electron .",
+        "build": "electron-builder"
+    },
+    "keywords": [
+        "emiteos",
+        "server"
+    ],
+    "author": "Alex A.F.",
+    "license": "ISC",
+    "devDependencies": {
+        "electron": "^7.0.0",
+        "electron-builder": "^21.2.0"
+    }
+}
