@@ -1,14 +1,32 @@
-const { app, BrowserWindow } = require('electron')
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
+const { app, BrowserWindow, Menu, Tray } = require('electron')
+require('./server')
+    // Keep a global reference of the window object, if you don't, the window will
+    // be closed automatically when the JavaScript object is garbage collected.
 let win
+let tray = null
+app.on('ready', () => {
+    tray = new Tray('./server.png')
+    const contextMenu = Menu.buildFromTemplate([{
+        label: 'Salir',
+        click: () => {
+            app.exit(0);
+        }
+    }, ])
+    tray.setToolTip('Emite Server')
+    tray.setContextMenu(contextMenu)
+    tray.on('double-click', () => {
+        //createWindow();
+        win.show();
+    })
+})
 
 function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 500,
+        height: 250,
+        resizable: false,
+        autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true
         }
@@ -18,10 +36,16 @@ function createWindow() {
     win.loadFile('index.html')
 
     // Open the DevTools.
-    win.webContents.openDevTools()
+
+    //win.webContents.openDevTools()
+
+    win.on("close", (evt) => {
+        evt.preventDefault(); // This will cancel the close
+        win.hide();
+    });
 
     // Emitted when the window is closed.
-    win.on('closed', () => {
+    win.on('closed', (event) => {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.

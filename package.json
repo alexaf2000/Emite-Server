@@ -1,7 +1,7 @@
 {
-    "name": "emiteos-server",
+    "name": "emite-server",
     "version": "0.0.1",
-    "description": "The Emiteos Server.",
+    "description": "The Emite Server.",
     "main": "main.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,5 +17,8 @@
     "devDependencies": {
         "electron": "^7.0.0",
         "electron-builder": "^21.2.0"
+    },
+    "dependencies": {
+        "express": "^4.17.1"
     }
 }

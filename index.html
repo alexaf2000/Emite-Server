@@ -2,22 +2,85 @@
 <html>
 
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Emiteos Server</title>
+    <title>Emite Server</title>
 </head>
 
 <body>
-    <h1>Hi!</h1>
-    This is Emiteos Server
-    <script>
-        document.write(process.versions.node)
-    </script>, Chrome
-    <script>
-        document.write(process.versions.chrome)
-    </script>, and Electron
-    <script>
-        document.write(process.versions.electron)
-    </script>.
+    <h1>Emite</h1>
+    <div class="testing">
+        <p>Tu servidor se encuentra en:</p>
+        <div class="code">
+            <script>
+                var os = require('os');
+                var interfaces = os.networkInterfaces();
+                var addresses = [];
+                for (var k in interfaces) {
+                    for (var k2 in interfaces[k]) {
+                        var address = interfaces[k][k2];
+                        if (address.family === 'IPv4' && !address.internal) {
+                            addresses.push(address.address);
+                        }
+                    }
+                }
+                console.log(addresses);
+                addresses.forEach(element => {
+                    document.write("" +
+                        element + ":5454<br/>");
+                });
+            </script>
+        </div>
+    </div>
+    <p class="version">
+        <script>
+            document.write(require("electron").remote.app.getVersion());
+        </script>
+    </p>
 </body>
+<style>
+    * {
+        user-select: none;
+    }
+    
+    body {
+        color: white;
+        font-family: sans-serif;
+        text-align: center;
+        background: linear-gradient(to bottom, rgb(245, 78, 0), rgb(173, 55, 0));
+        background-size: cover;
+        background-attachment: fixed;
+    }
+    
+    h1 {
+        font-family: Kaushan Script;
+        font-style: italic;
+    }
+    
+    p.version {
+        position: fixed;
+        text-align: right;
+        bottom: 0px;
+        right: 5px;
+        font-size: 10px!important;
+    }
+    
+    p {
+        font-size: 14px;
+    }
+    
+    .testing {
+        vertical-align: bottom;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .code {
+        font-family: consolas;
+        margin: 15px auto;
+        width: 50%;
+        background: rgb(238, 203, 88, 0.5);
+    }
+</style>
 
 </html>
