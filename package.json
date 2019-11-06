@@ -15,8 +15,8 @@
     "author": "Alex A.F.",
     "license": "ISC",
     "devDependencies": {
-        "electron": "^7.0.0",
-        "electron-builder": "^21.2.0"
+        "electron": "^7.0.1",
+        "electron-builder": "^22.1.0"
     },
     "dependencies": {
         "express": "^4.17.1"
