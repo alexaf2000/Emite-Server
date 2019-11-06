@@ -1,11 +1,27 @@
-const { app, BrowserWindow, Menu, Tray } = require('electron')
-require('./server')
+const { app, BrowserWindow, Menu, Tray, nativeImage } = require('electron')
+require('./server') //Create a server instance
     // Keep a global reference of the window object, if you don't, the window will
     // be closed automatically when the JavaScript object is garbage collected.
 let win
 let tray = null
+const iconPath = __dirname + '/build/icon.png';
+const gotTheLock = app.requestSingleInstanceLock()
+if (!gotTheLock) {
+    app.quit()
+} else {
+    app.on('second-instance', (event, commandLine, workingDirectory) => {
+        // Someone tried to run a second instance, we should focus our window.
+        if (win) {
+            if (!win.isVisible()) win.show()
+            if (win.isMinimized()) win.restore()
+            win.focus()
+        }
+    })
+}
+
+//Executes when app is ready
 app.on('ready', () => {
-    tray = new Tray('./server.png')
+    tray = new Tray(nativeImage.createFromPath(iconPath))
     const contextMenu = Menu.buildFromTemplate([{
         label: 'Salir',
         click: () => {
@@ -18,6 +34,7 @@ app.on('ready', () => {
         //createWindow();
         win.show();
     })
+    createWindow();
 })
 
 function createWindow() {
@@ -26,6 +43,8 @@ function createWindow() {
         width: 500,
         height: 250,
         resizable: false,
+        title: "Emite Server",
+
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true
@@ -52,12 +71,6 @@ function createWindow() {
         win = null
     })
 }
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
-
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
     // On macOS it is common for applications and their menu bar
