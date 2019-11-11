@@ -1,5 +1,6 @@
 {
     "name": "emite-server",
+    "productName": "Emite Server",
     "version": "0.0.1",
     "description": "The Emite Server.",
     "main": "main.js",
