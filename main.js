@@ -4,10 +4,10 @@ require('./server') //Create a server instance
     // be closed automatically when the JavaScript object is garbage collected.
 let win
 let tray = null
-const iconPath = __dirname + '/build/icon.png';
+const iconPath = __dirname + '/src/assets/icon.ico';
 const gotTheLock = app.requestSingleInstanceLock()
 if (!gotTheLock) {
-    app.quit()
+    app.exit()
 } else {
     app.on('second-instance', (event, commandLine, workingDirectory) => {
         // Someone tried to run a second instance, we should focus our window.
@@ -21,7 +21,7 @@ if (!gotTheLock) {
 
 //Executes when app is ready
 app.on('ready', () => {
-    tray = new Tray(nativeImage.createFromPath(iconPath))
+    tray = new Tray(iconPath)
     const contextMenu = Menu.buildFromTemplate([{
         label: 'Salir',
         click: () => {
